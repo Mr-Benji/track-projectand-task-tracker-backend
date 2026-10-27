@@ -51,4 +51,9 @@ public class ProjectService {
         projectRepository.deleteById(id);
         return "Project deleted successfully";
     }
+
+    // B1
+    public List<Project> getProjectsByDepartment(String department) {
+        return projectRepository.findByDepartmentIgnoreCaseOrderByNameAsc(department);
+    }
 }
