@@ -1,6 +1,7 @@
 package com.track.tracker.service;
 
 import com.track.tracker.model.Task;
+import com.track.tracker.model.TaskStatus;
 import com.track.tracker.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -52,5 +53,10 @@ public class TaskService {
         }
         taskRepository.deleteById(id);
         return "Task deleted successfully";
+    }
+
+    // B2
+    public List<Task> getTasksByStatus(TaskStatus status) {
+        return taskRepository.findByStatusOrderByDueDateAsc(status);
     }
 }
