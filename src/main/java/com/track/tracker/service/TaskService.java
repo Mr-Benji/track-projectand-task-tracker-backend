@@ -5,6 +5,7 @@ import com.track.tracker.model.TaskStatus;
 import com.track.tracker.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -58,5 +59,10 @@ public class TaskService {
     // B2
     public List<Task> getTasksByStatus(TaskStatus status) {
         return taskRepository.findByStatusOrderByDueDateAsc(status);
+    }
+
+    // B3
+    public List<Task> getTasksBetween(LocalDate start, LocalDate end) {
+        return taskRepository.findByDueDateBetweenOrderByDueDateAsc(start, end);
     }
 }

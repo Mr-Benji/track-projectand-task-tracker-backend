@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -75,4 +76,12 @@ public class TaskController {
     public ResponseEntity<List<Task>> getTasksByStatus(@RequestParam TaskStatus status) {
         return new ResponseEntity<>(taskService.getTasksByStatus(status), HttpStatus.OK);
     }
-}
+
+    // B3
+    @GetMapping("/between")
+    public ResponseEntity<List<Task>> getTasksBetween(@RequestParam String start, @RequestParam String end) {
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+        return new ResponseEntity<>(taskService.getTasksBetween(startDate, endDate), HttpStatus.OK);
+    }
+}   
