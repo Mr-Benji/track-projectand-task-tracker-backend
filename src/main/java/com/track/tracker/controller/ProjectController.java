@@ -1,6 +1,7 @@
 package com.track.tracker.controller;
 
 import com.track.tracker.model.Project;
+import com.track.tracker.service.MemberService;
 import com.track.tracker.service.ProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +24,11 @@ import java.util.UUID;
 public class ProjectController {
 
     private final ProjectService projectService;
+    private final MemberService memberService;
 
-    public ProjectController(ProjectService projectService) {
+    public ProjectController(ProjectService projectService, MemberService memberService) {
         this.projectService = projectService;
+        this.memberService = memberService;
     }
 
     @PostMapping("/save")
@@ -73,5 +76,14 @@ public class ProjectController {
     @GetMapping("/by-department")
     public ResponseEntity<List<Project>> getProjectsByDepartment(@RequestParam String department) {
         return new ResponseEntity<>(projectService.getProjectsByDepartment(department), HttpStatus.OK);
+    }
+
+    // C4
+    @GetMapping("/of-member/{memberId}")
+    public ResponseEntity<?> getProjectsOfMember(@PathVariable UUID memberId) {
+        if (memberService.getMemberById(memberId).isEmpty()) {
+            return new ResponseEntity<>("The member with that id does not exist", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(projectService.getProjectsOfMember(memberId), HttpStatus.OK);
     }
 }

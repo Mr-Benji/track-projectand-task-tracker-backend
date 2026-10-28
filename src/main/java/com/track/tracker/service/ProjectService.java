@@ -56,4 +56,9 @@ public class ProjectService {
     public List<Project> getProjectsByDepartment(String department) {
         return projectRepository.findByDepartmentIgnoreCaseOrderByNameAsc(department);
     }
+
+    // C4
+    public List<Project> getProjectsOfMember(UUID memberId) {
+        return projectRepository.findProjectsOfMember(memberId);
+    }
 }
