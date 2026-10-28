@@ -67,4 +67,10 @@ public class SkillController {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
+
+    // C3
+    @GetMapping("/unused")
+    public ResponseEntity<List<Skill>> getUnusedSkills() {
+        return new ResponseEntity<>(skillService.getUnusedSkills(), HttpStatus.OK);
+    }
 }
