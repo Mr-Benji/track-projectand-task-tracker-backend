@@ -52,4 +52,9 @@ public class MemberService {
         memberRepository.deleteById(id);
         return "Member deleted successfully";
     }
+
+    // C1
+    public List<Member> getMembersBySkill(String name) {
+        return memberRepository.findMembersBySkillName(name);
+    }
 }
