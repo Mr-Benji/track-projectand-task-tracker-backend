@@ -41,6 +41,7 @@ public class TaskService {
         return taskRepository.findById(id);
     }
 
+    // status is only changed in updateTaskStatus (D2)
     public String updateTask(UUID id, Task newTask) {
         Optional<Task> optionalTask = taskRepository.findById(id);
         if (optionalTask.isEmpty()) {
@@ -50,7 +51,6 @@ public class TaskService {
         task.setTitle(newTask.getTitle());
         task.setPriority(newTask.getPriority());
         task.setDueDate(newTask.getDueDate());
-        task.setStatus(newTask.getStatus());
         task.setProject(newTask.getProject());
         task.setMember(newTask.getMember());
         taskRepository.save(task);
@@ -73,5 +73,31 @@ public class TaskService {
     // B3
     public List<Task> getTasksBetween(LocalDate start, LocalDate end) {
         return taskRepository.findByDueDateBetweenOrderByDueDateAsc(start, end);
+    }
+
+    // D2
+    public String updateTaskStatus(UUID id, TaskStatus newStatus) {
+        Optional<Task> optionalTask = taskRepository.findById(id);
+        if (optionalTask.isEmpty()) {
+            return "The task with that id does not exist";
+        }
+        Task task = optionalTask.get();
+        TaskStatus currentStatus = task.getStatus();
+        if (!isMoveAllowed(currentStatus, newStatus)) {
+            return "Cannot change status from " + currentStatus + " to " + newStatus;
+        }
+        task.setStatus(newStatus);
+        taskRepository.save(task);
+        return "Task status updated successfully";
+    }
+
+    private boolean isMoveAllowed(TaskStatus current, TaskStatus next) {
+        if (current == TaskStatus.TODO) {
+            return next == TaskStatus.IN_PROGRESS || next == TaskStatus.DROPPED;
+        }
+        if (current == TaskStatus.IN_PROGRESS) {
+            return next == TaskStatus.DONE || next == TaskStatus.DROPPED;
+        }
+        return false;
     }
 }
