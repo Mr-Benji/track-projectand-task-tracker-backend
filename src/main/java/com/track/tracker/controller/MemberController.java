@@ -74,4 +74,17 @@ public class MemberController {
     public ResponseEntity<List<Member>> getMembersBySkill(@RequestParam String name) {
         return new ResponseEntity<>(memberService.getMembersBySkill(name), HttpStatus.OK);
     }
+
+    // D3
+    @PutMapping("/{memberId}/skills/{skillId}")
+    public ResponseEntity<String> addSkillToMember(@PathVariable UUID memberId, @PathVariable UUID skillId) {
+        String message = memberService.addSkillToMember(memberId, skillId);
+        if (message.equals("Skill added to the member")) {
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } else if (message.equals("The member already has that skill")) {
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        } else {
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
 }

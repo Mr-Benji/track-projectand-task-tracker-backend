@@ -1,8 +1,11 @@
 package com.track.tracker.service;
 
 import com.track.tracker.model.Member;
+import com.track.tracker.model.Skill;
 import com.track.tracker.repository.MemberRepository;
+import com.track.tracker.repository.SkillRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +15,11 @@ import java.util.UUID;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final SkillRepository skillRepository;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, SkillRepository skillRepository) {
         this.memberRepository = memberRepository;
+        this.skillRepository = skillRepository;
     }
 
     public String saveMember(Member member) {
@@ -56,5 +61,26 @@ public class MemberService {
     // C1
     public List<Member> getMembersBySkill(String name) {
         return memberRepository.findMembersBySkillName(name);
+    }
+
+    // D3
+    @Transactional
+    public String addSkillToMember(UUID memberId, UUID skillId) {
+        Optional<Member> optionalMember = memberRepository.findById(memberId);
+        if (optionalMember.isEmpty()) {
+            return "The member with that id does not exist";
+        }
+        Optional<Skill> optionalSkill = skillRepository.findById(skillId);
+        if (optionalSkill.isEmpty()) {
+            return "That skill does not exist";
+        }
+        Member member = optionalMember.get();
+        Skill skill = optionalSkill.get();
+        if (member.getSkills().contains(skill)) {
+            return "The member already has that skill";
+        }
+        member.getSkills().add(skill);
+        memberRepository.save(member);
+        return "Skill added to the member";
     }
 }
