@@ -19,7 +19,16 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
+    // D1
     public String saveTask(Task task) {
+        if (task.getDueDate().isBefore(LocalDate.now())) {
+            return "Task date cannot be in the past";
+        }
+        if (taskRepository.existsByMemberIdAndDueDateAndStatusNot(
+                task.getMember().getId(), task.getDueDate(), TaskStatus.DROPPED)) {
+            return "Member already has a task due on that date";
+        }
+        task.setStatus(TaskStatus.TODO);
         taskRepository.save(task);
         return "Task saved successfully";
     }

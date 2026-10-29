@@ -15,4 +15,7 @@ public interface TaskRepository extends JpaRepository<Task, UUID> {
 
     // B3
     List<Task> findByDueDateBetweenOrderByDueDateAsc(LocalDate start, LocalDate end);
+
+    // D1
+    boolean existsByMemberIdAndDueDateAndStatusNot(UUID memberId, LocalDate dueDate, TaskStatus status);
 }

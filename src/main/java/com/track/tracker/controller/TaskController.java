@@ -30,10 +30,17 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    // D1
     @PostMapping("/save")
     public ResponseEntity<String> saveTask(@RequestBody Task task) {
         String message = taskService.saveTask(task);
-        return new ResponseEntity<>(message, HttpStatus.CREATED);
+        if (message.equals("Task saved successfully")) {
+            return new ResponseEntity<>(message, HttpStatus.CREATED);
+        } else if (message.equals("Task date cannot be in the past")) {
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        }
     }
 
     @GetMapping("/all")
@@ -84,4 +91,4 @@ public class TaskController {
         LocalDate endDate = LocalDate.parse(end);
         return new ResponseEntity<>(taskService.getTasksBetween(startDate, endDate), HttpStatus.OK);
     }
-}   
+}
