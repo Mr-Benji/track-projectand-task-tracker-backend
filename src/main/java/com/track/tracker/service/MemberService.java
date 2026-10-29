@@ -2,8 +2,10 @@ package com.track.tracker.service;
 
 import com.track.tracker.model.Member;
 import com.track.tracker.model.Skill;
+import com.track.tracker.model.Workstation;
 import com.track.tracker.repository.MemberRepository;
 import com.track.tracker.repository.SkillRepository;
+import com.track.tracker.repository.WorkstationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,10 +18,14 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final SkillRepository skillRepository;
+    private final WorkstationRepository workstationRepository;
 
-    public MemberService(MemberRepository memberRepository, SkillRepository skillRepository) {
+    public MemberService(MemberRepository memberRepository,
+                         SkillRepository skillRepository,
+                         WorkstationRepository workstationRepository) {
         this.memberRepository = memberRepository;
         this.skillRepository = skillRepository;
+        this.workstationRepository = workstationRepository;
     }
 
     public String saveMember(Member member) {
@@ -82,5 +88,25 @@ public class MemberService {
         member.getSkills().add(skill);
         memberRepository.save(member);
         return "Skill added to the member";
+    }
+
+    // D4
+    public String changeWorkstation(UUID memberId, int stationNumber) {
+        Optional<Member> optionalMember = memberRepository.findById(memberId);
+        if (optionalMember.isEmpty()) {
+            return "The member with that id does not exist";
+        }
+        Optional<Workstation> optionalWorkstation = workstationRepository.findByStationNumber(stationNumber);
+        if (optionalWorkstation.isEmpty()) {
+            return "The workstation with that stationNumber does not exist";
+        }
+        Workstation workstation = optionalWorkstation.get();
+        if (memberRepository.existsByWorkstation(workstation)) {
+            return "That workstation is taken by another member";
+        }
+        Member member = optionalMember.get();
+        member.setWorkstation(workstation);
+        memberRepository.save(member);
+        return "Workstation changed successfully";
     }
 }

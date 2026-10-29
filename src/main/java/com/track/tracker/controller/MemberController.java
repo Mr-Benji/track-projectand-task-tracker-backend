@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -82,6 +83,19 @@ public class MemberController {
         if (message.equals("Skill added to the member")) {
             return new ResponseEntity<>(message, HttpStatus.OK);
         } else if (message.equals("The member already has that skill")) {
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        } else {
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // D4
+    @PatchMapping("/{memberId}/workstation")
+    public ResponseEntity<String> changeWorkstation(@PathVariable UUID memberId, @RequestParam int stationNumber) {
+        String message = memberService.changeWorkstation(memberId, stationNumber);
+        if (message.equals("Workstation changed successfully")) {
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } else if (message.equals("That workstation is taken by another member")) {
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         } else {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
