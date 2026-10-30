@@ -3,6 +3,7 @@ package com.track.tracker.service;
 import com.track.tracker.model.Task;
 import com.track.tracker.model.TaskStatus;
 import com.track.tracker.repository.TaskRepository;
+import com.track.tracker.repository.WorkLogRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,9 +15,11 @@ import java.util.UUID;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+    private final WorkLogRepository workLogRepository;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, WorkLogRepository workLogRepository) {
         this.taskRepository = taskRepository;
+        this.workLogRepository = workLogRepository;
     }
 
     // D1
@@ -57,9 +60,14 @@ public class TaskService {
         return "Task updated successfully";
     }
 
+    // E3
     public String deleteTask(UUID id) {
-        if (!taskRepository.existsById(id)) {
+        Optional<Task> optionalTask = taskRepository.findById(id);
+        if (optionalTask.isEmpty()) {
             return "The task with that id does not exist";
+        }
+        if (workLogRepository.existsByTask(optionalTask.get())) {
+            return "That task has work logs, delete them first";
         }
         taskRepository.deleteById(id);
         return "Task deleted successfully";

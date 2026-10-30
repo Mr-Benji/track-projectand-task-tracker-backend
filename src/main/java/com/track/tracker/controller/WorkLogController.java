@@ -4,6 +4,7 @@ import com.track.tracker.model.WorkLog;
 import com.track.tracker.service.WorkLogService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,5 +43,16 @@ public class WorkLogController {
     @GetMapping("/project/{code}")
     public ResponseEntity<List<WorkLog>> getWorkLogsOfProject(@PathVariable String code) {
         return new ResponseEntity<>(workLogService.getWorkLogsOfProject(code), HttpStatus.OK);
+    }
+
+    // E3
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteWorkLog(@PathVariable UUID id) {
+        String message = workLogService.deleteWorkLog(id);
+        if (message.equals("Work log deleted successfully")) {
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
     }
 }

@@ -69,11 +69,14 @@ public class TaskController {
         }
     }
 
+    // E3
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteTask(@PathVariable UUID id) {
         String message = taskService.deleteTask(id);
         if (message.equals("Task deleted successfully")) {
             return new ResponseEntity<>(message, HttpStatus.OK);
+        } else if (message.equals("That task has work logs, delete them first")) {
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         } else {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
