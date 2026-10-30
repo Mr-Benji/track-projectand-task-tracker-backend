@@ -8,6 +8,7 @@ import com.track.tracker.repository.WorkLogRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,5 +37,10 @@ public class WorkLogService {
         workLog.setTask(task);
         workLogRepository.save(workLog);
         return "Work log saved successfully";
+    }
+
+    // E2
+    public List<WorkLog> getWorkLogsOfProject(String code) {
+        return workLogRepository.findWorkLogsOfProject(code);
     }
 }
