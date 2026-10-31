@@ -108,4 +108,10 @@ public class TaskController {
             return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
         }
     }
+
+    // F1
+    @GetMapping("/stats/by-status")
+    public ResponseEntity<List<Object[]>> getTaskCountByStatus() {
+        return new ResponseEntity<>(taskService.getTaskCountByStatus(), HttpStatus.OK);
+    }
 }

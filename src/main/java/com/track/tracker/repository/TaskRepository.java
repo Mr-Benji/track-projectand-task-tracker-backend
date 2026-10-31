@@ -3,6 +3,7 @@ package com.track.tracker.repository;
 import com.track.tracker.model.Task;
 import com.track.tracker.model.TaskStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,4 +19,8 @@ public interface TaskRepository extends JpaRepository<Task, UUID> {
 
     // D1
     boolean existsByMemberIdAndDueDateAndStatusNot(UUID memberId, LocalDate dueDate, TaskStatus status);
+
+    // F1
+    @Query("SELECT t.status, COUNT(t) FROM Task t GROUP BY t.status")
+    List<Object[]> countTasksByStatus();
 }

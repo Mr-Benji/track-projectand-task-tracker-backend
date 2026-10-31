@@ -108,4 +108,9 @@ public class TaskService {
         }
         return false;
     }
+
+    // F1
+    public List<Object[]> getTaskCountByStatus() {
+        return taskRepository.countTasksByStatus();
+    }
 }
