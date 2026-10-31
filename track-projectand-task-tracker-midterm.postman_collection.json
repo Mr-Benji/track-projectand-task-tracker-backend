@@ -1,0 +1,458 @@
+{
+	"info": {
+		"_postman_id": "59c4d97e-862c-4e86-bc44-fd1472509a82",
+		"name": "track-projectand-task-tracker-midterm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "A2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/tasks/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tasks",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "B1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/projects/by-department?department=engineering",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"projects",
+						"by-department"
+					],
+					"query": [
+						{
+							"key": "department",
+							"value": "engineering"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "B2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/tasks/by-status?status=TODO",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tasks",
+						"by-status"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "TODO"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "B3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/tasks/between?start=2026-10-01&end=2026-10-31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tasks",
+						"between"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "2026-10-01"
+						},
+						{
+							"key": "end",
+							"value": "2026-10-31"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "C1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/members/by-skill?name=backend",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"members",
+						"by-skill"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "backend"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "C2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/workstations/free",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"workstations",
+						"free"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "C3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/skills/unused",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"skills",
+						"unused"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "C4",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/projects/of-member/34ac2ea9-f355-4ba7-862d-9505fa263b5f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"projects",
+						"of-member",
+						"34ac2ea9-f355-4ba7-862d-9505fa263b5f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "D1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/tasks/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tasks",
+						"save"
+					]
+				},
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Code review checklist\",\n  \"priority\": \"MEDIUM\",\n  \"dueDate\": \"2026-11-20\",\n  \"status\": \"DONE\",\n  \"project\": {\n    \"id\": \"adb28b42-69f7-490a-b973-ec62d244a92f\"\n  },\n  \"member\": {\n    \"id\": \"34ac2ea9-f355-4ba7-862d-9505fa263b5f\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "D2",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/tasks/355619a3-7421-4f93-a836-1a88e42b0d51/status?status=IN_PROGRESS",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tasks",
+						"355619a3-7421-4f93-a836-1a88e42b0d51",
+						"status"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "IN_PROGRESS"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "D3",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/members/34ac2ea9-f355-4ba7-862d-9505fa263b5f/skills/30d5d798-6a6e-4043-b8db-66ef70e210ae",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"members",
+						"34ac2ea9-f355-4ba7-862d-9505fa263b5f",
+						"skills",
+						"30d5d798-6a6e-4043-b8db-66ef70e210ae"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "D4",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/members/cb93e358-a307-4a24-9c21-43bacccfd162/workstation?stationNumber=14",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"members",
+						"cb93e358-a307-4a24-9c21-43bacccfd162",
+						"workstation"
+					],
+					"query": [
+						{
+							"key": "stationNumber",
+							"value": "14"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "E1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/work-logs/save?taskId=8cdaadd7-dcec-4349-b0bb-b89432f92233",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"work-logs",
+						"save"
+					],
+					"query": [
+						{
+							"key": "taskId",
+							"value": "8cdaadd7-dcec-4349-b0bb-b89432f92233"
+						}
+					]
+				},
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"activity\": \"Code review\",\n  \"notes\": \"Reviewed and merged the pull request\",\n  \"hoursSpent\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "E2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/work-logs/project/PRJ-2026-01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"work-logs",
+						"project",
+						"PRJ-2026-01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "E3",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/tasks/delete/8cdaadd7-dcec-4349-b0bb-b89432f92233",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tasks",
+						"delete",
+						"8cdaadd7-dcec-4349-b0bb-b89432f92233"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "F1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/tasks/stats/by-status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tasks",
+						"stats",
+						"by-status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "F2",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/tasks/cancel-day?memberId=8a48e497-8ef3-4b45-975c-7674a12dd4ab&date=2026-10-20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tasks",
+						"cancel-day"
+					],
+					"query": [
+						{
+							"key": "memberId",
+							"value": "8a48e497-8ef3-4b45-975c-7674a12dd4ab"
+						},
+						{
+							"key": "date",
+							"value": "2026-10-20"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
