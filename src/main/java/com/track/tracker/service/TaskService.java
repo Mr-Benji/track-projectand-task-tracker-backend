@@ -5,6 +5,7 @@ import com.track.tracker.model.TaskStatus;
 import com.track.tracker.repository.TaskRepository;
 import com.track.tracker.repository.WorkLogRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -112,5 +113,12 @@ public class TaskService {
     // F1
     public List<Object[]> getTaskCountByStatus() {
         return taskRepository.countTasksByStatus();
+    }
+
+    // F2
+    @Transactional
+    public String cancelDay(UUID memberId, LocalDate date) {
+        int cancelled = taskRepository.cancelTasksOfMemberOnDate(memberId, date);
+        return cancelled + " tasks cancelled";
     }
 }
