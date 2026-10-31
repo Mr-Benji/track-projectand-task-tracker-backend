@@ -32,4 +32,9 @@ public interface TaskRepository extends JpaRepository<Task, UUID> {
            "WHERE t.member.id = :memberId AND t.dueDate = :date " +
            "AND t.status <> com.track.tracker.model.TaskStatus.DONE")
     int cancelTasksOfMemberOnDate(@Param("memberId") UUID memberId, @Param("date") LocalDate date);
+
+    // bonus dashboard
+    long countByDueDate(LocalDate dueDate);
+
+    long countByStatus(TaskStatus status);
 }
